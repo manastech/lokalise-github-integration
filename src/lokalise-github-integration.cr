@@ -24,11 +24,12 @@ class Queue
       @requests[lang] = nil
     end
 
-    puts "Triggering #{lang}!"
+    payload = %({"event_type": "translation-updated", "client_payload": {"lang": "#{lang}"}})
+    puts "Triggering #{lang}! #{payload}"
 
     HTTP::Client.post("https://api.github.com/repos/#{GITHUB_ORG_REPO}/dispatches",
       headers: HTTP::Headers{"Authorization" => "token #{GITHUB_TOKEN}"},
-      body: %q({"event_type": "translation-updated", "client_payload": {"lang": "#{lang}"}})) do |response|
+      body: payload) do |response|
       begin
         puts response.body_io.gets
       rescue
