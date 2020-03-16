@@ -1,0 +1,17 @@
+name: lokalise-github-integration
+version: 0.1.0
+
+authors:
+  - Brian J. Cardiff <bcardiff@gmail.com>
+
+targets:
+  lokalise-github-integration:
+    main: src/lokalise-github-integration.cr
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+
+crystal: 0.33.0
+
+license: MIT
