@@ -1,5 +1,5 @@
 # Dockerfile
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:0.33.0
 
 ADD . /src
 WORKDIR /src
@@ -10,8 +10,9 @@ RUN ldd ./lokalise-github-integration | tr -s '[:blank:]' '\n' | grep '^/' | \
 
 FROM scratch
 COPY --from=0 /src/deps /
-COPY --from=0 /src/file_server /lokalise-github-integration
-ENV PORT = 80
+COPY --from=0 /src/lokalise-github-integration /lokalise-github-integration
+
+ENV PORT=80
 
 EXPOSE 80
 

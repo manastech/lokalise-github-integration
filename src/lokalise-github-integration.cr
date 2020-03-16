@@ -54,8 +54,14 @@ end
 post "/lokalise" do |env|
   secret = env.request.headers["X-Secret"]
   if secret == LOKALISE_X_SECRET
-    language = env.params.json["language"].as(Hash(String, JSON::Any))["iso"].as_s
-    Q.enqueue(language)
+    begin
+      language = env.params.json["language"].as(Hash(String, JSON::Any))["iso"].as_s
+      puts "Enqueue #{language}"
+      Q.enqueue(language)
+    rescue e
+      # catch exception and continue response to allow validation requests of lokalise
+      puts e
+    end
   else
     puts "Invalid X-Secret header"
   end
