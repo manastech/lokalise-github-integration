@@ -5,6 +5,8 @@ GITHUB_TOKEN      = ENV["GITHUB_TOKEN"]
 GITHUB_ORG_REPO   = ENV["GITHUB_ORG_REPO"]
 DEBOUNCE          = ENV["DEBOUNCE"]?.try(&.to_i) || 10
 
+Kemal.config.port = ENV["PORT"]?.try(&.to_i) || 3000
+
 class Queue
   @mutex = Mutex.new
   @requests = Hash(String, Concurrent::Future(Nil)?).new
